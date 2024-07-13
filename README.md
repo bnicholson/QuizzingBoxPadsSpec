@@ -14,9 +14,19 @@ Type 2
 Interface box
 
 
-C++
+## How is QuizMachine Implemented
 
-SeatInterface::SeatInterface() - Constructor called to initialize the Interface to the hardware.
+Currently QuizMachine is implemented in C++ (Std v20) using SQLite 3.40 as the underlying database, and wxWidgets3.2.4 for the UI and various other functions.
+
+## 
+
+SeatInterface::SeatInterface() - Constructor called to initialize the Interface to the hardware.  Often the hardware devices and/or the interface is required to have it's own thread to ensure performance, fairness and to manage the hardware device(s).   All current implementations of this construct inherit from wxThread to allow this thread to work well with the wxWidgets UI of QuizMachine. 
+
+```C++
+QBoxInterface::QBoxInterface() : SeatInterface(), wxThread(wxTHREAD_DETACHED) {
+  // All QBox specific code here.
+}
+```
 
 SeatInterface::~SeatInterface() - Destructor.   This is called when the interface to the hardware is destroyed when QuizMachine changes to a different type of interface
 
