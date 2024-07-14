@@ -27,9 +27,10 @@ QuizMachine as of version 6 is implemented in C++ (Std v20) using SQLite 3.40 as
 
 The QBox and the Parallel version of the seat hardware are implmented using C++ inheritance from the SeatInterface class.   This is done so that the majority of QuizMachine has no idea what the hardware, interface, or device specific code.   
 
-So to create a new jump seat hardware device you must create a new class that inherits from the SeatInterface class.   All methods in the SeatInterface class are virtual methods to ensure that the correct method is called even when the object type is not known by the caller. This ensures that we have runtime polymorphism.   
+So to create a new jump seat hardware device you must create a new class that inherits from the SeatInterface class.   All methods in the SeatInterface class are virtual methods to ensure that the correct method is called even when the object type is not known by the caller. This ensures that we have runtime polymorphism.  Ideally the SeatInterface class should be an abstract class.  However, a SeatInterface class instance is instantiated in QMServer due to the heavy use of QuizMachine classes in QMServer.
 
 ### SeatInterface::SeatInterface() - 
+
 Constructor called to initialize the Interface to the hardware.  Often the hardware devices and/or the interface is required to have it's own thread to ensure performance, fairness and to manage the hardware device(s).   All current implementations of this constructor inherit from wxThread to allow this thread to work well with the wxWidgets UI of QuizMachine.  See below for an example boilerplate. 
 
 ```C++
@@ -97,11 +98,5 @@ As the hardware device or interface how many seats per set there are.
 ### bool SeatInterface::diagnose() - 
 
 This routine allows the Quizmaster to test the hardware, interface, seats, or device.   Currently this is really unused, but is often used to test various parameters and routines during the development of new versions of the interface box or seats.  
-
-
-
-
-
-
 
 
