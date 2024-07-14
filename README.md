@@ -25,7 +25,7 @@ QuizMachine as of version 6 is implemented in C++ (Std v20) using SQLite 3.40 as
 
 ## Implementing custom seat or interface hardware
 
-The QBox and the Parallel version of the seat hardware are implmented using C++ inheritance from the SeatInterface class.   This is done so that the majority of QuizMachine has no idea what the hardware, interface, or device specific code.   
+The QBox and the Parallel version of the seat hardware are implmented using C++ inheritance from the SeatInterface class.   This is done so that the majority of QuizMachine has no idea what the hardware, interface, or device specific code does.  
 
 So to create a new jump seat hardware device you must create a new class that inherits from the SeatInterface class.   All methods in the SeatInterface class are virtual methods to ensure that the correct method is called even when the object type is not known by the caller. This ensures that we have runtime polymorphism.  Ideally the SeatInterface class should be an abstract class.  However, a SeatInterface class instance is instantiated in QMServer due to the heavy use of QuizMachine classes in QMServer.
 
