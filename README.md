@@ -67,6 +67,8 @@ Often a device or interface doesn't want to or need to
 
 ### int SeatInterface::quit(int ec) -
 
+This method is called right before QuizMachine exits or if the QuizMaster decides to change the hardware, device or interface used to manage the seats.  This routine should quickly do any work required to shut down the hardware, release any software resources such as memory, and then exit the thread.   Note:  This must happen very fast, ideally within thirty seconds.
+
 ### void SeatInterface::setSeatType() - 
 
 Is the seats normall open or normally closed.
