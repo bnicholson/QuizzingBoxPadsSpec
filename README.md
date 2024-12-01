@@ -23,9 +23,23 @@ Interface box
 
 QuizMachine as of version 6 is implemented in C++ (Std v20) using SQLite 3.40 as the underlying database, and wxWidgets3.2.4 for the UI and various other functions.  
 
+## Current Implementations
+
+### LPT - Line Printer interface.  
+
+This interface is a crude interface and was the original interface.   It reads from 0x378 directly.   This interface typically doesn't work anymore because few modern computers have a LPT port.
+
+### USB Serial Interface.  
+
+This interface simply searches all the USB ports and actual COM ports for a responding device.  A tiny set of commands and data is available to communicate back and forth between the USB/COM ports and the interface itself.
+
+### Bluetooth Interface.   
+
+Quizmachine searches all BLE devices in the neighborhood for those with a specific name.   Once that specific name is found Quizmachine connects to them (if configured by the quizmaster).   A service is then read to receive data and another service is written to write data.   The data is nearly identical to the the USB serial interface.   Some commands and data were enhanced to handle the timing issues associated with the inherent unreliabilities of Bluetooth BLE.
+
 ## Implementing custom seat or interface hardware
 
-The QBox and the Parallel version of the seat hardware are implemented using C++ inheritance from the SeatInterface class.   This is done so that the majority of QuizMachine has no idea what the hardware, interface, or device specific code does.  
+The Bluetooth, QBox and the Parallel versions of the seat hardware are implemented using C++ inheritance from the SeatInterface class.   This is done so that the majority of QuizMachine has no idea what the hardware, interface, or device specific code does.  
 
 So to create a new jump seat hardware device you must create a new class that inherits from the SeatInterface class.   All methods in the SeatInterface class and derived classes must be virtual methods to ensure that the correct method is called even when the object type is not known by the caller. This ensures that we have runtime polymorphism.  Ideally the SeatInterface class should be an abstract class.  However, a SeatInterface class instance is instantiated in QMServer due to the heavy use of QuizMachine classes in QMServer.
 
