@@ -31,7 +31,7 @@ So to create a new jump seat hardware device you must create a new class that in
 
 ### SeatInterface::SeatInterface() - 
 
-Constructor called to initialize the Interface to the hardware.  Often the hardware devices and/or the interface is required to have it's own thread to ensure performance, fairness and to manage the hardware device(s).   All current implementations of this constructor inherit from wxThread to allow this thread to work well with the wxWidgets UI of QuizMachine.  See below for an example boilerplate. 
+Constructor called to initialize the Interface to the hardware.  Often the hardware devices and/or the interface is required to have it's own thread to ensure performance, fairness and to manage the hardware device(s).   All current implementations of this constructor inherit from wxThread to allow this thread to work well with the wxWidgets UI of QuizMachine.  See below for an example boilerplate.  Note: In the future this will change.   This class will inherit from std::thread rather than from wxThread.   These threads should never interface with the UI except through JumpReport and event queuing later.  
 
 ```C++
 QBoxInterface::QBoxInterface() : SeatInterface(), wxThread(wxTHREAD_DETACHED) {
