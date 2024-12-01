@@ -106,8 +106,8 @@ This routine allows the Quizmaster to test the hardware, interface, seats, or de
 
 Any class derived from SeatInterface must report a jump to the rest of the QuizMachine UI via an event.   See below for for an example of that code. 
 
-              // First create the event to report a jump or a person sitting down
-							JumpReport jr(set,seat,1,now);	// fix a tie jump issue
-							jr.setJumped(true);   /
-							// now send the event to the GUI/UX
-							wxPostEvent(frame,jr);
+        // First create the event to report a jump or a person sitting down
+	JumpReport jr(set,seat,1,now);	// fix a tie jump issue
+	jr.setJumped(true);   // false would indicate that the person sat down
+	// now send the event to the GUI/UX
+	wxPostEvent(frame,jr);
