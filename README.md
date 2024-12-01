@@ -21,7 +21,7 @@ Interface box
 
 ## How is QuizMachine Implemented
 
-QuizMachine as of version 6 is implemented in C++ (Std v20) using SQLite 3.40 as the underlying database, and wxWidgets3.2.4 for the UI and various other functions.  
+QuizMachine as of version 6 is implemented in C++ (Std v20) using SQLite 3.40 as the underlying database, and wxWidgets3.2.4 for the UI and various other functions.  I've included the actual code to the SeatInterface class and to the JumpReport class.   Note:  It will not compile because it's dependent upon classes not included in this specificiation but you should be able to see a few of the tasks needed internally by reviewing the code.  configData for instance is an instance of a class that reads from the QuizMachine.ini file.   Notice the oldbits variable.  That variable contains a bit for each seat starting with bit 0 (low bit) being the status of the first seat (Quzzer #1) on the Red set.   When the interface box reports a changed status for all the seats (it always does that) that status is compared with oldbits to decide what JumpReports should be sent to the UI GUI.  One JumpReport is sent for each seat that changed.   Note: The original LPTInterface had a condition where it was possible for multiple seats to be reported simultaneously.  Now with interrupt driven devices that never has happened.   We spent months with a three sets of seats connected to a capturing sixteen channel oscilloscope looking for the differences between jumps.  The minimum time between jumps seen during that testing was three microseconds.  However that was very rare.  Commonly jumps could be seen with a difference in the ten microsecond range. 
 
 ## Current Implementations
 
