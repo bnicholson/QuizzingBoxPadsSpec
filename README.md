@@ -104,4 +104,10 @@ As the hardware device or interface how many seats per set there are.
 
 This routine allows the Quizmaster to test the hardware, interface, seats, or device.   Currently this is really unused, but is often used to test various parameters and routines during the development of new versions of the interface box or seats.  
 
+Any class derived from SeatInterface must report a jump to the rest of the QuizMachine UI via an event.   See below for for an example of that code. 
 
+              // First create the event to report a jump or a person sitting down
+							JumpReport jr(set,seat,1,now);	// fix a tie jump issue
+							jr.setJumped(true);   /
+							// now send the event to the GUI/UX
+							wxPostEvent(frame,jr);
